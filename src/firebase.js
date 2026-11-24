@@ -1,10 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
-// Firebase web config (these values are public identifiers, not secrets;
-// access is controlled by Firebase Security Rules).
+// The API key comes from .env.local (see .env.example). Other values are
+// public identifiers; access is controlled by Firebase Security Rules.
 const firebaseConfig = {
-  apiKey: "AIzaSyCBP2HNe99QtTpT26wJl_K1HmYQGxtr7Ho",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "hisd-build-challenge.firebaseapp.com",
   projectId: "hisd-build-challenge",
   storageBucket: "hisd-build-challenge.firebasestorage.app",
