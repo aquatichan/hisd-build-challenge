@@ -15,15 +15,15 @@
     text-transform: uppercase;
     color: var(--white);
     border: 1px solid rgb(255 255 255 / 0.14);
-    border-radius: 999px;
+    border-radius: var(--r);
     background: rgb(255 255 255 / 0.03);
   }
 
   .hero__kicker-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); animation: kicker-pulse 2.4s ease-in-out infinite; }
 
   @keyframes kicker-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgb(249 208 78 / 0.55); }
-    50% { box-shadow: 0 0 0 7px rgb(249 208 78 / 0); }
+    0%, 100% { }
+    50% { }
   }
 
   .hero__title { font-size: clamp(3.3rem, 7.4vw, 7.4rem); line-height: 0.86; letter-spacing: -0.025em; }
@@ -63,7 +63,7 @@
     max-width: 520px;
     margin: clamp(30px, 3.6vw, 44px) 0 0;
     border: 1px solid rgb(255 255 255 / 0.1);
-    border-radius: 14px;
+    border-radius: var(--r);
     overflow: hidden;
   }
 
@@ -159,7 +159,7 @@
     margin-top: 26px;
     padding: 6px;
     border: 1px solid rgb(255 255 255 / 0.12);
-    border-radius: 999px;
+    border-radius: var(--r);
     background: rgb(255 255 255 / 0.03);
   }
 

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { primaryCta } from '../../content/event.js'
 import { NAV } from '../../content/nav.js'
 import Icon from '../ui/Icon.jsx'
+import LiquidGlass from './LiquidGlass.jsx'
 import './header.css'
 
 export default function Header() {
@@ -10,6 +11,7 @@ export default function Header() {
   const [open, setOpen] = useState(false)
   const menuRef = useRef(null)
   const toggleRef = useRef(null)
+  const barRef = useRef(null)
   const cta = primaryCta()
 
   // glass gets denser once you leave the top; scroll-spy picks the section under the header
@@ -61,7 +63,8 @@ export default function Header() {
 
   return (
     <header className={`site-header${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}`}>
-      <div className="site-header__bar glass">
+      <LiquidGlass id="lg-header" targetRef={barRef} />
+      <div ref={barRef} className="site-header__bar">
         <a className="site-header__brand" href="#top" aria-label="Houston ISD Build Challenge, back to top">
           <img className="site-header__seal" src="/brand/hisd-seal-teal-192.png" alt="" width="192" height="192" />
           <img className="site-header__wm" src="/brand/build-challenge-wordmark.png" alt="" width="1488" height="240" />

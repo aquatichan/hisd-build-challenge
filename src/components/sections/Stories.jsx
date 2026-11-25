@@ -15,11 +15,8 @@ export default function Stories() {
 
       <div className="section__inner stories__inner">
         <div className="stories__copy reveal">
-          <h2 className="display stories__title">
-            <span>Ideas</span>
-            <span>built</span>
-            <span>by our</span>
-            <span className="hl-teal">students</span>
+          <h2 className="section-title stories__title">
+            Ideas built by our <em className="accent">students</em>
           </h2>
           <p className="lede">
             Every project starts with a student who noticed something. The teams, the build days and the moments in between

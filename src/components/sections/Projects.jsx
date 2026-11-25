@@ -31,10 +31,8 @@ export default function Projects() {
         <div className="focus reveal" role="group" aria-roledescription="carousel" aria-label="Example project ideas">
           <article className="focus__card">
             <div className="focus__head">
-              <h2 className="display focus__title">
-                Project
-                <br />
-                in focus <span className="slash">/</span>
+              <h2 className="section-title focus__title">
+                Project in <em className="accent">focus</em>
               </h2>
               <p className="focus__aside">One idea at a time: what it looks like, how it could be built, and why it matters.</p>
               <div className="focus__nav">

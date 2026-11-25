@@ -26,15 +26,10 @@ export default function HowItWorks() {
       <div className="section__inner">
         <div className="how__head">
           <div className="reveal">
-            <h2 className="display how__title">
-              How it <span className="hl-teal">works</span>
-              <span className="how__spark" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-              </span>
+            <h2 className="section-title how__title">
+              How it <em className="accent">works</em>
             </h2>
-            <p className="spaced how__sub">A simple process for big ideas</p>
+            <p className="lede how__sub">A simple process for big ideas.</p>
           </div>
           <WhenNear className="how__knot">
             <PhotonKnot />

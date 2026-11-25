@@ -52,7 +52,8 @@ export default function MapOverlay() {
           const c = map.campuses[h]
           tipName.current.textContent = c.name
           tipMeta.current.textContent = `${LEVEL[c.level]} · ${c.address}`
-          tipBadge.current.hidden = !c.participating
+          // explicit display: the .tag class sets display, which would override the hidden attribute
+          tipBadge.current.style.display = c.participating ? '' : 'none'
           shownTip = h
         }
         // flip to the left near the right edge

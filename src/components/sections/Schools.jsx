@@ -39,9 +39,8 @@ export default function Schools() {
 
         <div className="section__inner schools__inner">
           <div ref={copyRef} className="schools__copy reveal">
-            <h2 className="display schools__title">
-              <span>Your</span>
-              <span className="hl-teal">schools</span>
+            <h2 className="section-title schools__title">
+              Your <em className="accent">schools</em>
             </h2>
             <p className="lede">
               A district-wide challenge bringing together students from across Houston ISD. Every dot on the map is one of
@@ -106,8 +105,8 @@ export default function Schools() {
 
       {/* collectible cards: hover one to light its campus on the map */}
       <div className="section__inner schools__deck">
-        <h3 className="display schools__deck-title">
-          The collection <span className="slash">/</span>
+        <h3 className="subsection-title schools__deck-title">
+          The <em className="accent">collection</em>
           <span className="label schools__deck-count">
             {litSchools.length} of {map.counts.total} collected
           </span>

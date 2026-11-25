@@ -4,6 +4,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Bell,
+  Camera,
   CalendarDays,
   ChartColumn,
   Code,
@@ -61,6 +62,7 @@ const ICONS = {
   partners: Handshake,
   scissors: Scissors,
   bell: Bell,
+  camera: Camera,
 }
 
 export default function Icon({ name, size = 24, className = '', title, strokeWidth = 1.75 }) {

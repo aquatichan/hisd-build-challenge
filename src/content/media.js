@@ -19,10 +19,12 @@ export const schoolCards = {
   'Westside High School': '/placeholders/school-westside.jpg',
 }
 
-// Sponsor / partner stickers. Placeholders until real logos (with permission) are provided.
+// Sponsor / partner stickers. Click a sticker to peel it off and reveal who they are.
+// name: company name · pitch: one sentence on what the company does · provides: what they give the challenge.
+// Leave pitch/provides empty ('') until the sponsor confirms the wording; the card shows "Details coming soon".
 export const sponsors = [
-  { src: '/sponsors/graphify.png', name: 'Graphify Labs (YC S26)', width: 150, rotate: -8 },
-  { src: '/placeholders/sponsor-02.png', name: 'Sponsor 02 (placeholder)', width: 170, rotate: 6 },
-  { src: '/placeholders/sponsor-03.png', name: 'Sponsor 03 (placeholder)', width: 190, rotate: -4 },
-  { src: '/placeholders/sponsor-04.png', name: 'Sponsor 04 (placeholder)', width: 150, rotate: 9 },
+  { src: '/sponsors/graphify.png', name: 'Graphify Labs', note: 'YC S26', pitch: '', provides: '', width: 150, rotate: -8 },
+  { src: '/placeholders/sponsor-02.png', name: 'Sponsor 02', note: 'Placeholder', pitch: '', provides: '', width: 170, rotate: 6 },
+  { src: '/placeholders/sponsor-03.png', name: 'Sponsor 03', note: 'Placeholder', pitch: '', provides: '', width: 190, rotate: -4 },
+  { src: '/placeholders/sponsor-04.png', name: 'Sponsor 04', note: 'Placeholder', pitch: '', provides: '', width: 150, rotate: 9 },
 ]

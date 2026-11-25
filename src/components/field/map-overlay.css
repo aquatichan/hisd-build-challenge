@@ -38,7 +38,6 @@
     top: -34px;
     max-width: none; /* the pin wrapper is 0px wide; don't let the global svg rule squash it */
     color: var(--yellow);
-    filter: drop-shadow(0 0 10px rgb(249 208 78 / 0.7));
     animation: pin-bob 2.8s var(--ease) infinite alternate;
   }
 
@@ -53,7 +52,7 @@
     background: var(--yellow);
     font-weight: 700;
     font-size: 0.6875rem;
-    border-radius: 3px;
+    border-radius: var(--r);
   }
 
   @keyframes pin-bob {
@@ -70,8 +69,7 @@
     transition: opacity var(--t-fast) var(--ease);
     background: color-mix(in srgb, var(--ink) 82%, transparent);
     border: 1px solid var(--bp-line-strong);
-    border-radius: 8px;
-    box-shadow: 0 0 24px rgb(0 163 175 / 0.25);
+    border-radius: var(--r);
     backdrop-filter: blur(10px);
   }
 

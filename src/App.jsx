@@ -5,11 +5,13 @@ import Stories from './components/sections/Stories.jsx'
 import Projects from './components/sections/Projects.jsx'
 import Schools from './components/sections/Schools.jsx'
 import HowItWorks from './components/sections/HowItWorks.jsx'
+import Judging from './components/sections/Judging.jsx'
 import Details from './components/sections/Details.jsx'
 import Footer from './components/sections/Footer.jsx'
 import './components/sections/sections.css'
 import './components/sections/polish.css'
 import './components/fx/fx.css'
+import './styles/system.css'
 
 // Reveal-on-scroll. Content is visible without JS; the .js class opts into the effect.
 function useReveal() {
@@ -57,6 +59,7 @@ export default function App() {
         <Projects />
         <Schools />
         <HowItWorks />
+        <Judging />
         <Details />
       </main>
       <div className="page">

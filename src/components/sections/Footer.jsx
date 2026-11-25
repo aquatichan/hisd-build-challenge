@@ -1,47 +1,11 @@
-import { lazy, useEffect, useRef, useState } from 'react'
+import { lazy, useState } from 'react'
 import { event, primaryCta } from '../../content/event.js'
 import { NAV } from '../../content/nav.js'
 import WhenNear from '../ui/WhenNear.jsx'
 import Icon from '../ui/Icon.jsx'
+import CountdownCalendar from '../fx/CountdownCalendar.jsx'
 
 const TearTicket = lazy(() => import('../bits/TearTicket.jsx'))
-const Lanyard = lazy(() => import('../bits/Lanyard.jsx'))
-
-// The builder pass lives on a full-width layer that is part of the page (it scrolls natively, no lag):
-// it starts well above the join section and runs to the bottom of the footer, so the badge can be dragged
-// across that whole area. The layer ignores the pointer except over the card.
-const CARD_PX = 320 // badge height on screen
-
-function BadgeLayer({ anchorRef }) {
-  const ref = useRef(null)
-  const [h, setH] = useState(0)
-  useEffect(() => {
-    const ro = new ResizeObserver(([e]) => setH(e.contentRect.height))
-    ro.observe(ref.current)
-    return () => ro.disconnect()
-  }, [])
-  return (
-    <div ref={ref} className="badge-layer" aria-hidden="true">
-      <WhenNear className="badge-layer__gl" keep={false} margin="20% 0px">
-        {h > 0 && (
-          <Lanyard
-            fullscreen
-            anchorRef={anchorRef}
-            frontImage="/placeholders/badge-front.jpg"
-            backImage="/placeholders/badge-back.jpg"
-            strapImage="/placeholders/strap.png"
-            strapColor="#00a3af"
-            metal="silver"
-            finish="matte"
-            size={Math.min(0.9, CARD_PX / h)}
-            strapLength={0}
-            breeze={0.35}
-          />
-        )}
-      </WhenNear>
-    </div>
-  )
-}
 
 // The end of the page is its last impression (peak-end): tear the ticket to get updates.
 function Ticket({ cta, onTear }) {
@@ -82,7 +46,6 @@ function Ticket({ cta, onTear }) {
 export default function Footer() {
   const cta = primaryCta()
   const [torn, setTorn] = useState(false)
-  const anchorRef = useRef(null)
   const onTear = () => {
     setTorn(true)
     if (cta.href) window.open(cta.href, '_blank', 'noopener')
@@ -92,10 +55,9 @@ export default function Footer() {
     <footer id="footer" className="site-footer">
       <div id="join" className="section__inner join">
         <div className="join__copy">
-          <p className="spaced join__eyebrow">Get in on it</p>
-          <p className="display join__title">
-            Bring an idea. Find your team. <span className="hl-yellow">Build for Houston.</span>
-          </p>
+          <h2 className="section-title join__title">
+            Bring an idea. Find your team. <em className="accent accent--yellow">Build for Houston.</em>
+          </h2>
           <p className="lede">
             Tear the stub to get updates: kickoff dates, the official rules and how to register.
           </p>
@@ -113,11 +75,9 @@ export default function Footer() {
           </WhenNear>
         </div>
 
-        {/* a sample builder pass on a lanyard: the strap is pinned here (the anchor); the badge itself is drawn by
-            BadgeLayer below, so it can be dragged well beyond this column and swings back when let go. */}
-        <figure className="join__badge">
-          <span ref={anchorRef} className="join__anchor" aria-hidden="true" />
-        </figure>
+        <CountdownCalendar />
+
+
       </div>
 
       <div className="section__inner site-footer__grid">
@@ -169,7 +129,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-    <BadgeLayer anchorRef={anchorRef} />
     </>
   )
 }
