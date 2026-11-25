@@ -1,0 +1,90 @@
+@layer components {
+  .map-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 900ms var(--ease);
+  }
+
+  .map-overlay.is-ready { opacity: 1; }
+
+  .map-overlay > * {
+    position: absolute;
+    left: 0;
+    top: 0;
+    will-change: transform;
+  }
+
+  .map-overlay__land {
+    color: var(--bp-ink);
+    font-size: 0.6875rem;
+    margin: -8px 0 0 10px;
+    white-space: nowrap;
+  }
+
+  .map-overlay__land::before {
+    content: '+';
+    position: absolute;
+    left: -14px;
+    top: -1px;
+    color: var(--teal);
+  }
+
+  /* storyboard-style map pins: a glowing marker standing on each participating campus */
+  .map-pin__icon {
+    position: absolute;
+    left: -15px;
+    top: -34px;
+    max-width: none; /* the pin wrapper is 0px wide; don't let the global svg rule squash it */
+    color: var(--yellow);
+    filter: drop-shadow(0 0 10px rgb(249 208 78 / 0.7));
+    animation: pin-bob 2.8s var(--ease) infinite alternate;
+  }
+
+  .map-pin__label {
+    position: absolute;
+    left: 0;
+    top: -62px;
+    transform: translateX(-50%);
+    padding: 3px 8px;
+    white-space: nowrap;
+    color: var(--ink);
+    background: var(--yellow);
+    font-weight: 700;
+    font-size: 0.6875rem;
+    border-radius: 3px;
+  }
+
+  @keyframes pin-bob {
+    to { translate: 0 -4px; }
+  }
+
+  /* hover tooltip */
+  .map-tip {
+    display: grid;
+    gap: 4px;
+    max-width: 280px;
+    padding: 10px 14px;
+    opacity: 0;
+    transition: opacity var(--t-fast) var(--ease);
+    background: color-mix(in srgb, var(--ink) 82%, transparent);
+    border: 1px solid var(--bp-line-strong);
+    border-radius: 8px;
+    box-shadow: 0 0 24px rgb(0 163 175 / 0.25);
+    backdrop-filter: blur(10px);
+  }
+
+  .map-tip.is-on { opacity: 1; }
+  .map-tip strong { font-size: 0.9375rem; line-height: 1.2; }
+  .map-tip .label { color: var(--bp-ink); font-size: 0.6875rem; }
+  .map-tip .tag { justify-self: start; }
+
+  @media (max-width: 767px) {
+    .map-overlay__land { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .map-pin__icon { animation: none; }
+  }
+}

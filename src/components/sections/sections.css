@@ -1,0 +1,711 @@
+@layer components {
+  /* ================= 01 EDITORIAL OPENING ================= */
+  .hero {
+    position: relative;
+    padding: calc(var(--header-h) + 64px) 0 0;
+    overflow: hidden;
+  }
+
+  .hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(24px, 3vw, 48px);
+    align-items: center;
+  }
+
+  .hero__kicker { color: var(--white); margin-bottom: clamp(14px, 2vw, 22px); opacity: 0.85; }
+  .hero__title { display: grid; margin: 0; font-size: clamp(3.1rem, 6.7vw, 6.6rem); line-height: 0.88; }
+  .hero__title span { white-space: nowrap; }
+  .hero__title .hl-yellow { font-size: 1.16em; }
+
+  /* the one hand-set line: serif, lowercase, a little off-axis */
+  .hero__tag {
+    margin-top: clamp(14px, 2vw, 22px);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+    line-height: 1.05;
+    color: var(--cream);
+    transform: rotate(-1.5deg);
+    transform-origin: left;
+  }
+
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: clamp(28px, 3.4vw, 40px); }
+
+  /* goal-gradient meter */
+  .hero__meter { width: min(100%, 420px); margin-top: 28px; }
+  .hero__meter-row { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 8px; color: var(--gray); font-size: 0.6875rem; }
+  .hero__meter-row strong { color: var(--yellow); font-size: 0.875rem; }
+  .hero__meter-next { color: var(--teal); }
+  .hero__meter-bar, .schools__meter { display: block; height: 6px; border-radius: 3px; background: rgb(255 255 255 / 0.1); overflow: hidden; }
+  .hero__meter-bar i, .schools__meter i { display: block; height: 100%; border-radius: inherit; background: var(--yellow); }
+
+  /* the HISD seal in neon, large; it may spill a little past its column */
+  .hero__seal { position: relative; justify-self: center; width: min(132%, 700px); aspect-ratio: 1; margin: -40px -3% -40px 0; }
+  .hero__seal-still { width: 90%; margin: 5%; opacity: 0.6; }
+
+  /* Houston at dusk: its own centered band below the headline, nothing on top of it */
+  .hero__city { position: relative; margin-top: clamp(32px, 5vw, 72px); }
+
+  .hero__city-print {
+    position: relative;
+    width: min(100%, 1600px);
+    height: clamp(300px, 36vw, 540px);
+    margin-inline: auto;
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent), linear-gradient(transparent, #000 18%);
+    mask-composite: intersect;
+  }
+
+  .hero__city-print > img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
+
+  .hero__hint {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    padding: 4px 10px;
+    color: var(--bp-ink);
+    font-size: 0.625rem;
+    background: rgb(1 14 43 / 0.7);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  @media (hover: none) { .hero__hint { display: none; } }
+
+  /* ================= 02 STUDENT STORIES ================= */
+  .stories {
+    position: relative;
+    min-height: max(92svh, 680px);
+    display: flex;
+    align-items: center;
+    overflow: clip;
+    isolation: isolate;
+  }
+
+  /* the photo wall runs edge to edge behind the copy */
+  .stories__wall { position: absolute; inset: 0; z-index: -2; }
+
+  /* scrim: solid behind the words, clearing to the right; soft top/bottom edges into the page */
+  .stories__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgb(1 14 43 / 0.96) 0%, rgb(1 14 43 / 0.9) 30%, rgb(1 14 43 / 0.35) 58%, rgb(1 14 43 / 0.1) 100%),
+      linear-gradient(var(--ink), transparent 14%, transparent 86%, var(--ink));
+  }
+
+  .stories__copy { max-width: 520px; }
+  .stories__eyebrow { color: var(--white); font-size: 0.8125rem; margin-bottom: 18px; opacity: 0.85; }
+  .stories__title { display: grid; font-size: clamp(3rem, 5.6vw, 5.4rem); line-height: 0.88; }
+  .stories .lede { max-width: 34ch; color: var(--white); }
+  .stories__note { margin-top: 18px; font-family: var(--font-serif); font-style: italic; font-size: 1.35rem; color: var(--cream); }
+
+  /* ================= 03 PROJECT IN FOCUS ================= */
+  .focus {
+    --row: 460px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    align-items: end;
+    gap: clamp(12px, 1.6vw, 22px);
+  }
+
+  /* mirrored L: [title | mockup] over [code | description]; the mockup and description share one edge */
+  .focus__card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    grid-template-areas: 'head mock' 'code body';
+  }
+
+  .focus__head { grid-area: head; align-self: end; padding: 0 clamp(16px, 3vw, 40px) clamp(24px, 3vw, 36px) 0; }
+  .focus__title { font-size: clamp(2.4rem, 4.6vw, 4rem); line-height: 0.92; }
+  .focus__aside { margin-top: 16px; max-width: 30ch; font-family: var(--font-serif); font-style: italic; font-size: 1.3rem; line-height: 1.2; color: var(--cream); }
+
+  .focus__mock {
+    grid-area: mock;
+    margin: 0;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border: 1px solid var(--bp-line-strong);
+    border-bottom: 0;
+    border-radius: 12px 12px 0 0;
+    background: #04183a;
+  }
+
+  .focus__mock img { width: 100%; height: 100%; object-fit: cover; }
+
+  .focus__mock-ph {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 8px;
+    height: 100%;
+    color: var(--teal);
+    text-align: center;
+    background: repeating-linear-gradient(-45deg, rgb(0 163 175 / 0.07) 0 1px, transparent 1px 12px);
+  }
+
+  .focus__mock-ph .display { color: var(--white); font-size: clamp(1.2rem, 2vw, 1.7rem); }
+  .focus__mock-ph .label { color: var(--bp-ink); font-size: 0.625rem; }
+
+  .focus__code,
+  .focus__body {
+    min-height: var(--row);
+    border: 1px solid var(--bp-line-strong);
+    background: linear-gradient(160deg, rgb(10 42 82 / 0.75), rgb(1 14 43 / 0.92));
+  }
+
+  .focus__code { grid-area: code; border-right: 0; border-radius: 12px 0 0 12px; overflow: hidden; }
+  .focus__code .code-morph { border-right: 1px solid var(--bp-line); }
+  .focus__body { grid-area: body; border-left: 0; border-radius: 0 0 12px 0; }
+
+  /* arrows sit level with the bottom row */
+  .focus__arrow { margin-bottom: calc(var(--row) / 2 - 26px); }
+
+  .focus__arrow {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    color: var(--teal);
+    background: rgb(0 163 175 / 0.08);
+    border: 1.5px solid var(--teal);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+  }
+
+  .focus__arrow:hover { background: var(--teal); color: var(--ink); }
+
+  .focus__body {
+    grid-area: body;
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: 16px;
+    padding: clamp(28px, 4vw, 56px);
+  }
+
+  .focus__name { font-size: clamp(2rem, 3.6vw, 3.4rem); line-height: 0.92; }
+  .focus__text { color: var(--gray); max-width: 40ch; }
+
+  .focus__impact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(18px, 2.4vw, 34px);
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .focus__impact li {
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    color: var(--teal);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+
+  .focus__impact li svg { filter: drop-shadow(0 0 8px rgb(0 163 175 / 0.5)); }
+  .focus__impact li span { color: var(--white); }
+  .focus__with { color: var(--bp-ink); font-size: 0.6875rem; }
+
+  .focus__count {
+    grid-column: 2;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--gray);
+  }
+
+  .focus__dots { display: flex; gap: 8px; }
+
+  .focus__dots button {
+    width: 9px;
+    height: 9px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.22);
+    cursor: pointer;
+  }
+
+  .focus__dots button[aria-selected='true'] { background: var(--teal); }
+
+  /* ================= 04 YOUR SCHOOLS (live map) ================= */
+  .schools { overflow: hidden; padding-top: 0; }
+
+  .schools__stage {
+    position: relative;
+    min-height: max(100svh, 780px);
+    display: flex;
+    align-items: center;
+    padding-top: var(--section-pad);
+  }
+
+  .schools__map { position: absolute; inset: 0; }
+
+  /* soft fade so the map melts into the neighboring sections */
+  .schools__map::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(var(--ink), transparent 14%, transparent 86%, var(--ink));
+  }
+
+  .schools__inner { position: relative; z-index: 2; }
+  .schools__copy { max-width: 440px; }
+
+  .schools__title {
+    display: grid;
+    font-size: clamp(3rem, 6.2vw, 6rem);
+    line-height: 0.88;
+  }
+
+  .schools .lede { max-width: 34ch; }
+
+  .schools__box {
+    width: max-content;
+    max-width: 100%;
+    margin-top: 28px;
+    padding: 16px 22px 18px;
+    border: 2px solid var(--yellow);
+    border-radius: 10px;
+    background: rgb(249 208 78 / 0.06);
+  }
+
+  .schools__box-title { color: var(--yellow); font-size: 1.0625rem; letter-spacing: 0.02em; line-height: 1.1; }
+  .schools__box-title span { display: block; font-size: 1.6em; margin-top: 2px; }
+
+  .schools__meter { margin-top: 14px; width: 260px; max-width: 100%; }
+  .schools__box-note { margin-top: 8px; color: var(--gray); font-size: 0.625rem; }
+
+  /* the collection: holo cards */
+  .schools__deck { position: relative; z-index: 2; margin-top: clamp(24px, 4vw, 56px); }
+  .schools__deck-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; font-size: clamp(1.8rem, 3.4vw, 3rem); margin-bottom: 32px; }
+  .schools__deck-count { font-style: normal; color: var(--yellow); font-size: 0.75rem; letter-spacing: 0.1em; }
+
+  .schools__cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(16px, 2.4vw, 32px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    align-items: start;
+  }
+
+  .schools__cards > li { display: grid; justify-items: center; gap: 14px; }
+  .schools__card-slot { width: min(100%, 250px); aspect-ratio: 63 / 88; display: grid; place-items: center; }
+  .schools__card-still { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
+  .schools__card-cap { color: var(--gray); font-size: 0.625rem; text-align: center; }
+
+  .schools__card-empty {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 10px;
+    width: min(100%, 250px);
+    aspect-ratio: 63 / 88;
+    color: var(--teal);
+    text-align: center;
+    text-decoration: none;
+    border: 2px dashed var(--bp-line-strong);
+    border-radius: 16px;
+    background: repeating-linear-gradient(-45deg, rgb(0 163 175 / 0.06) 0 1px, transparent 1px 10px);
+    transition: border-color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+  }
+
+  .schools__card-empty:hover { border-color: var(--yellow); color: var(--yellow); background-color: rgb(249 208 78 / 0.05); }
+  .schools__card-empty .display { color: var(--white); font-size: 1.4rem; }
+  .schools__card-empty .label { font-size: 0.625rem; }
+
+  .schools__find { margin-top: 22px; position: relative; }
+
+  .schools__search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 14px;
+    color: var(--bp-ink);
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: 10px;
+    background: rgb(1 14 43 / 0.7);
+    backdrop-filter: blur(8px);
+  }
+
+  .schools__search:focus-within { border-color: var(--teal); color: var(--teal); }
+
+  .schools__search input {
+    flex: 1;
+    min-height: 46px;
+    color: var(--white);
+    font: inherit;
+    font-size: 0.9375rem;
+    background: transparent;
+    border: 0;
+    outline: 0;
+  }
+
+  .schools__results {
+    margin: 6px 0 0;
+    padding: 6px;
+    list-style: none;
+    border: 1px solid var(--bp-line-strong);
+    border-radius: 10px;
+    background: rgb(1 14 43 / 0.92);
+    backdrop-filter: blur(10px);
+  }
+
+  .schools__results button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 8px 10px;
+    color: var(--white);
+    text-align: left;
+    font: inherit;
+    font-size: 0.9375rem;
+    background: transparent;
+    border: 0;
+    border-radius: 6px;
+    cursor: default;
+  }
+
+  .schools__results button:hover, .schools__results button:focus-visible { background: rgb(0 163 175 / 0.14); }
+  .schools__results .label { color: var(--bp-ink); font-size: 0.625rem; white-space: nowrap; }
+  .schools__results .is-lit, .schools__results .is-lit .label { color: var(--yellow); }
+  .schools__more { padding: 8px 10px; color: var(--bp-ink); font-size: 0.6875rem; }
+
+  .schools__bring {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    color: var(--teal);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    text-decoration: none;
+  }
+
+  .schools__bring:hover { color: var(--white); }
+  .schools__fig { position: absolute; right: var(--gutter); bottom: 28px; z-index: 2; color: var(--bp-ink); }
+
+  /* ================= 05 HOW IT WORKS ================= */
+  .how { overflow: hidden; padding-bottom: calc(16.7vw + 48px); }
+
+  .how__head { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .how__knot { position: relative; flex: none; width: clamp(260px, 30vw, 420px); aspect-ratio: 1.35; margin: -40px 0 -60px; }
+  .how__title { position: relative; display: inline-block; font-size: clamp(2.6rem, 5.6vw, 5rem); }
+
+  /* three yellow "spark" dashes off the top-right corner */
+  .how__spark { position: absolute; right: -0.55em; top: 0.05em; width: 0.5em; height: 0.5em; }
+
+  .how__spark i {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 0.07em;
+    min-height: 3px;
+    background: var(--yellow);
+    border-radius: 2px;
+    transform-origin: left center;
+  }
+
+  /* each dash sits out along its own angle, so they radiate instead of meeting in a point */
+  .how__spark i { width: 55%; }
+  .how__spark i:nth-child(1) { transform: rotate(-62deg) translateX(70%); }
+  .how__spark i:nth-child(2) { transform: rotate(-22deg) translateX(85%); }
+  .how__spark i:nth-child(3) { transform: rotate(16deg) translateX(70%); }
+
+  .how__sub { margin-top: 18px; color: var(--white); }
+
+  .journey {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin: clamp(48px, 6vw, 80px) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* the connecting line between nodes */
+  .journey::before {
+    content: '';
+    position: absolute;
+    top: 54px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--teal) 70%, var(--yellow));
+  }
+
+  .journey__step { display: grid; justify-items: center; align-content: start; gap: 10px; text-align: center; }
+
+  .journey__node {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 108px;
+    height: 108px;
+    color: var(--teal);
+    border: 3px solid var(--teal);
+    border-radius: 50%;
+    background: #04183a;
+    box-shadow: 0 0 0 7px rgb(0 163 175 / 0.08);
+  }
+
+
+  .is-last .journey__node {
+    color: var(--yellow);
+    border-color: var(--yellow);
+    box-shadow: 0 0 0 7px rgb(249 208 78 / 0.1);
+  }
+
+
+  .journey__name { margin-top: 12px; font-size: clamp(1.4rem, 2.1vw, 2rem); }
+  .is-last .journey__name { color: var(--yellow); }
+  .journey__text { max-width: 24ch; color: var(--gray); font-size: 1rem; line-height: 1.45; }
+  .journey__text em { font-style: normal; font-weight: 600; color: var(--teal); }
+  .journey__date { color: var(--bp-ink); font-size: 0.6875rem; }
+
+  .how__skyline { position: absolute; left: 0; bottom: 0; }
+
+  /* ================= 06 DETAILS AND PEOPLE ================= */
+  .details { overflow: hidden; }
+
+  .details__skyline {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    opacity: 0.22;
+    mask-image: linear-gradient(90deg, transparent, #000 45%);
+  }
+
+  .details__title { position: relative; font-size: clamp(2.1rem, 4.2vw, 3.6rem); margin-bottom: 28px; }
+  .details__title--people { margin-top: clamp(64px, 8vw, 96px); }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(14px, 2vw, 24px);
+  }
+
+  .outline-card {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    padding: 26px 26px 30px;
+    color: var(--teal);
+    border: 1px solid rgb(0 163 175 / 0.45);
+    border-radius: 14px;
+    background: rgb(1 14 43 / 0.55);
+    backdrop-filter: blur(6px);
+  }
+
+  .outline-card__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .outline-card__n { font-family: var(--font-serif); font-style: italic; font-size: 2.2rem; line-height: 1; color: rgb(0 163 175 / 0.55); }
+  .outline-card h3 { color: var(--white); font-size: clamp(1.15rem, 1.5vw, 1.4rem); }
+  .outline-card p { max-width: 30ch; color: var(--gray); font-size: 0.9875rem; line-height: 1.5; }
+  .outline-card ul { margin: 0; padding: 0; list-style: none; color: var(--white); }
+  .outline-card__tbd { color: var(--yellow) !important; font-family: var(--font-serif); font-style: italic; font-size: 1.3rem !important; }
+
+  .details__rules {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 22px;
+    color: var(--bp-ink);
+    font-size: 0.6875rem;
+  }
+
+  /* prizes: particle trophy + medals on a podium */
+  .prizes { margin-top: clamp(72px, 9vw, 110px); }
+  .prizes__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 32px; }
+  .prizes__note { font-family: var(--font-serif); font-style: italic; font-size: 1.3rem; color: var(--cream); max-width: 34ch; }
+
+  .prizes__stage {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+    gap: clamp(12px, 2vw, 28px);
+    margin-top: 12px;
+  }
+
+  .prizes__gl { position: absolute; inset: -40px -20px 0; pointer-events: none; }
+  .prizes__slot { position: relative; display: grid; }
+  .prizes__form { height: clamp(220px, 24vw, 320px); cursor: grab; }
+  .prizes__slot.is-top .prizes__form { height: clamp(260px, 30vw, 380px); }
+
+  .prizes__plinth {
+    display: grid;
+    gap: 4px;
+    padding: 18px 20px;
+    border-top: 3px solid var(--plinth, var(--gray));
+    border-radius: 4px;
+    background: linear-gradient(rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.01));
+  }
+
+  .prizes__slot:nth-child(2) { --plinth: var(--gray); }
+  .prizes__slot.is-top { --plinth: var(--yellow); }
+  .prizes__slot:nth-child(4) { --plinth: var(--coral); }
+  .prizes__plinth .display { font-size: clamp(1.1rem, 1.6vw, 1.5rem); color: var(--white); }
+  .prizes__plinth .label { color: var(--bp-ink); font-size: 0.625rem; }
+  .prizes__slot.is-top .prizes__plinth { padding-block: 26px; }
+
+  /* sponsor stickers */
+  .stickers {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .stickers__cell {
+    position: relative;
+    height: 230px;
+    border: 1px dashed var(--bp-line);
+    border-radius: 12px;
+    background: rgb(255 255 255 / 0.02);
+  }
+
+  .stickers__slot { position: absolute; inset: 0; display: grid; place-items: center; }
+  .stickers__still { height: auto; }
+  .stickers__note { margin-top: 14px; color: var(--bp-ink); font-size: 0.625rem; }
+  .stickers__note a { color: var(--teal); }
+
+  /* ================= JOIN (lanyard + tear ticket) ================= */
+  .join {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(24px, 4vw, 64px);
+    align-items: stretch;
+    padding-bottom: 64px;
+    margin-bottom: 56px;
+    border-bottom: 1px solid rgb(255 255 255 / 0.08);
+  }
+
+  .join__eyebrow { color: var(--teal); font-size: 0.75rem; margin-bottom: 14px; }
+  .join__title { font-size: clamp(1.8rem, 3.4vw, 3rem); }
+  .join__status { margin-top: 16px; min-height: 1.4em; color: var(--yellow); font-size: 0.6875rem; }
+  .join__ticket { display: grid; justify-items: start; min-height: 250px; margin-top: 28px; }
+  .join__ticket-ph { width: min(520px, 100%); height: 230px; border-radius: 14px; background: #06244a; }
+
+  .join__badge { position: relative; display: grid; align-content: end; margin: 0; min-height: 560px; }
+
+  /* the badge's drawing layer: part of the page, full width, from well above the join section to the page end */
+  .badge-layer { position: absolute; left: 0; right: 0; top: -70vh; bottom: 0; z-index: 45; pointer-events: none; }
+  .badge-layer__gl { position: absolute; inset: 0; }
+  /* pinned to the footer's top border line (footer padding-top is 72px) */
+  .join__anchor { position: absolute; left: 50%; top: -73px; width: 1px; height: 1px; }
+  .join__badge-still { width: 220px; margin: 120px auto 0; border-radius: 12px; transform: rotate(-4deg); }
+  .join__badge figcaption { text-align: center; color: var(--bp-ink); font-size: 0.625rem; }
+
+  /* ================= FOOTER ================= */
+  .site-footer {
+    position: relative;
+    z-index: 1;
+    overflow: clip; /* a torn ticket stub flying off must never lengthen the page */
+    padding: 72px 0 28px;
+    border-top: 1px solid var(--bp-line-strong);
+    background: linear-gradient(rgb(1 14 43 / 0.4), var(--ink));
+  }
+
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .site-footer__brand { display: flex; gap: 18px; align-items: center; }
+  .site-footer__seal { width: 84px; height: 84px; }
+  .site-footer__wordmark { height: 30px; width: auto; margin-bottom: 10px; }
+  .site-footer__bc { height: 18px; width: auto; }
+  .site-footer__h { color: var(--teal); margin-bottom: 12px; }
+  .site-footer ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+  .site-footer a { color: var(--gray); text-decoration: none; }
+  .site-footer a:hover { color: var(--white); }
+  .site-footer .btn { color: var(--ink); }
+  .site-footer__muted { color: var(--bp-ink); font-size: 0.875rem; line-height: 1.5; }
+
+  .site-footer__base {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid rgb(255 255 255 / 0.08);
+    color: var(--bp-ink);
+    font-size: 0.6875rem;
+  }
+
+  /* ================= RESPONSIVE ================= */
+  @media (max-width: 1099px) {
+    .hero__inner { grid-template-columns: 1fr; }
+    .hero__seal { width: min(80vw, 460px); margin-right: 0; }
+    .focus__card { grid-template-columns: 1fr; grid-template-areas: 'head' 'mock' 'code' 'body'; }
+    .focus__mock { border-bottom: 1px solid var(--bp-line-strong); border-radius: 12px 12px 0 0; }
+    .focus__code { border-right: 1px solid var(--bp-line-strong); border-radius: 0; min-height: 0; }
+    .focus__body { border-left: 1px solid var(--bp-line-strong); border-top: 0; border-radius: 0 0 12px 12px; min-height: 0; }
+    .focus__arrow { margin-bottom: 0; }
+    .stories__inner { grid-template-columns: 1fr; }
+    .join__badge { margin-top: 0; min-height: 480px; }
+    .schools__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .join { grid-template-columns: 1fr; }
+    .stickers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .code-morph { min-height: 300px; border-right: 0; border-bottom: 1px solid var(--bp-line); }
+    .cards { grid-template-columns: 1fr; }
+    .site-footer__grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 767px) {
+    .hero { min-height: 0; padding-top: calc(var(--header-h) + 52px); }
+    .hero__title { font-size: clamp(2.7rem, 13vw, 4.2rem); }
+    .hero__seal { margin-top: 12px; width: min(88vw, 360px); }
+    .stories__scrim { background: linear-gradient(rgb(1 14 43 / 0.9), rgb(1 14 43 / 0.82) 60%, rgb(1 14 43 / 0.5)), linear-gradient(var(--ink), transparent 10%, transparent 90%, var(--ink)); }
+    .how__knot { display: none; }
+    .prizes__stage { gap: 8px; }
+    .prizes__form, .prizes__slot.is-top .prizes__form { height: 150px; }
+    .prizes__slot.is-top .prizes__form { height: 180px; }
+    .prizes__plinth { padding: 12px 10px; }
+    .join__ticket { justify-items: center; }
+
+    .focus { grid-template-columns: 1fr 1fr; }
+    .focus__card { grid-column: 1 / -1; grid-row: 1; }
+    .focus__arrow--prev { grid-row: 2; justify-self: start; }
+    .focus__arrow--next { grid-row: 2; grid-column: 2; justify-self: end; }
+    .focus__count { grid-row: 3; grid-column: 1 / -1; justify-self: center; }
+    .focus__impact { gap: 14px; justify-content: space-between; width: 100%; }
+    .focus__impact li { font-size: 0.75rem; }
+
+    .schools__stage { flex-direction: column; align-items: stretch; min-height: 0; }
+    .schools__map { position: relative; order: 2; height: min(66svh, 520px); margin-top: 8px; }
+    .schools__fig { position: static; order: 3; padding: 0 var(--gutter); }
+
+    .journey { grid-template-columns: 1fr; gap: 28px; }
+    .journey::before { top: 20px; bottom: 20px; left: 40px; right: auto; width: 3px; height: auto; background: linear-gradient(var(--teal) 70%, var(--yellow)); }
+    .journey__step { grid-template-columns: 80px 1fr; justify-items: start; text-align: left; column-gap: 18px; row-gap: 4px; }
+    .journey__node { grid-row: span 3; width: 80px; height: 80px; }
+    .journey__node svg { width: 32px; height: 32px; }
+    .journey__name { margin-top: 6px; }
+
+    .site-footer__grid { grid-template-columns: 1fr; }
+    .site-footer__base { flex-direction: column; }
+  }
+
+}

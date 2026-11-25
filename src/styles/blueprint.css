@@ -1,0 +1,41 @@
+@layer components {
+  /* Page-wide backdrop: flat deep navy (texture comes from the grain layer) */
+  .bp-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: var(--ink);
+  }
+
+  /* The WebGL school map fills its section (04) */
+  .point-field,
+  .point-field-slot {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .point-field__hud {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    color: var(--yellow);
+  }
+
+  .page {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* film grain over the whole page: breaks up flat digital gradients */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.09;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}

@@ -1,0 +1,111 @@
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: auto; /* native scroll only, no smooth-scroll hijacking */
+    -webkit-text-size-adjust: 100%;
+    overflow-x: clip; /* tilted strips and map callouts must never widen the page */
+  }
+
+  body { overflow-x: clip; }
+
+  body {
+    margin: 0;
+    background: var(--bg-dark);
+    color: var(--text-on-dark);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  img,
+  svg,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  /* Surfaces */
+  .surface-dark {
+    background: var(--bg-dark);
+    color: var(--text-on-dark);
+    --focus: var(--focus-on-dark);
+  }
+
+  .surface-light {
+    background: var(--bg-light);
+    color: var(--text-on-light);
+    --focus: var(--focus-on-light);
+  }
+
+  .surface-light a {
+    color: var(--link-on-light);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--focus, var(--focus-on-dark));
+    outline-offset: 2px;
+  }
+
+  .surface-light :focus-visible {
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--white);
+  }
+
+  .container {
+    width: min(100% - 2 * var(--gutter), var(--w-std));
+    margin-inline: auto;
+  }
+
+  .container--wide {
+    width: min(100% - 2 * var(--gutter), var(--w-wide));
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: var(--gutter);
+    top: -100px;
+    z-index: 100;
+    padding: 12px 20px;
+    background: var(--action);
+    color: var(--action-text);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .skip-link:focus {
+    top: 12px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

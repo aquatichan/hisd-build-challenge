@@ -1,122 +1,67 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useEffect } from 'react'
+import Header from './components/layout/Header.jsx'
+import Hero from './components/sections/Hero.jsx'
+import Stories from './components/sections/Stories.jsx'
+import Projects from './components/sections/Projects.jsx'
+import Schools from './components/sections/Schools.jsx'
+import HowItWorks from './components/sections/HowItWorks.jsx'
+import Details from './components/sections/Details.jsx'
+import Footer from './components/sections/Footer.jsx'
+import './components/sections/sections.css'
+import './components/sections/polish.css'
+import './components/fx/fx.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+// Reveal-on-scroll. Content is visible without JS; the .js class opts into the effect.
+function useReveal() {
+  useEffect(() => {
+    document.documentElement.classList.add('js')
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-in')
+            io.unobserve(e.target)
+          }
+        }),
+      { rootMargin: '0px 0px -10% 0px' },
+    )
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [])
+}
+
+// debug: ?debug&at=schools scrolls to a section after render (for screenshots / QA)
+function useDebugJump() {
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search)
+    const at = q.has('debug') && q.get('at')
+    if (at) document.getElementById(at)?.scrollIntoView()
+  }, [])
+}
+
+export default function App() {
+  useReveal()
+  useDebugJump()
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <a className="skip-link" href="#stories">
+        Skip to content
+      </a>
+      <div className="bp-grid" aria-hidden="true" />
+      <div className="grain" aria-hidden="true" />
+      <Header />
+      <main className="page">
+        <Hero />
+        <Stories />
+        <Projects />
+        <Schools />
+        <HowItWorks />
+        <Details />
+      </main>
+      <div className="page">
+        <Footer />
+      </div>
     </>
   )
 }
-
-export default App

@@ -1,0 +1,69 @@
+@layer tokens, base, typography, components;
+
+@layer tokens {
+  :root {
+    /* HISD palette (source of truth) */
+    --teal: #00a3af;
+    --deep-green: #006f5b;
+    --blue: #4975bd;
+    --purple: #474f99;
+    --green: #6db83d;
+    --gray: #d4d4d5;
+    --charcoal: #24383c;
+    --coral: #d96364;
+    --yellow: #f9d04e;
+    --cream: #fffed0;
+    --white: #ffffff;
+
+    /* Blueprint navy, sampled from the Build Challenge logo background so the logo blends seamlessly.
+       Off the HISD palette by decision (blueprint theme + logo match). */
+    --ink: #010e2b;
+
+    /* Blueprint linework and annotation ink */
+    --bp-line: color-mix(in srgb, var(--teal) 14%, transparent);
+    --bp-line-faint: color-mix(in srgb, var(--teal) 6%, transparent);
+    --bp-line-strong: color-mix(in srgb, var(--teal) 55%, transparent);
+    --bp-ink: color-mix(in srgb, var(--gray) 75%, var(--teal));
+
+    /* Roles: dark surfaces */
+    --bg-dark: var(--ink);
+    --panel-dark: var(--charcoal);
+    --text-on-dark: var(--white);
+    --muted-on-dark: var(--gray);
+    --line-on-dark: color-mix(in srgb, var(--teal) 30%, transparent);
+
+    /* Roles: light surfaces (teal is never text here: 3.1:1) */
+    --bg-light: var(--white);
+    --callout-light: var(--cream);
+    --text-on-light: var(--charcoal);
+    --link-on-light: var(--deep-green);
+    --line-on-light: var(--gray);
+
+    /* Actions */
+    --action: var(--yellow);
+    --action-text: var(--ink);
+
+    /* Focus */
+    --focus-on-dark: var(--yellow);
+    --focus-on-light: var(--charcoal);
+
+    /* Shape, spacing, layout */
+    --radius: 2px;
+    --tilt: -8deg;
+    --space: 8px;
+    --section-pad: clamp(64px, 7.5vw, 120px);
+    --gutter: clamp(20px, 5vw, 64px);
+    --header-h: 64px;
+    --radius-glass: 18px;
+    --tilt-strips: -5deg;
+    --w-wide: 1280px;
+    --w-std: 1120px;
+    --w-prose: 65ch;
+
+    /* Motion */
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --t-fast: 200ms;
+    --t-med: 400ms;
+    --t-slow: 800ms;
+  }
+}

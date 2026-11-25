@@ -1,0 +1,189 @@
+@layer components {
+  /* ============ CodeMorph: code window ============ */
+  .code-morph {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    background: linear-gradient(160deg, #051a3a, #020c22);
+    border-right: 1px solid var(--bp-line);
+    overflow: hidden;
+  }
+
+  .code-morph__bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--bp-line);
+    background: rgb(255 255 255 / 0.02);
+  }
+
+  .code-morph__dots { display: flex; gap: 6px; }
+  .code-morph__dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--coral); }
+  .code-morph__dots i:nth-child(2) { background: var(--yellow); }
+  .code-morph__dots i:nth-child(3) { background: var(--green); }
+
+  .code-morph__tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+
+  .code-morph__tab {
+    padding: 5px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    color: var(--bp-ink);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .code-morph__tab:hover { color: var(--white); }
+  .code-morph__tab[aria-selected='true'] { color: var(--ink); background: var(--teal); font-weight: 700; }
+
+  .code-morph__label { padding: 14px 18px 0; color: var(--bp-ink); font-size: 0.625rem; }
+  .code-morph__label span { color: var(--yellow); }
+
+  .code-morph__code {
+    flex: 1;
+    margin: 0;
+    padding: 12px 18px 22px 8px;
+    font-family: var(--font-mono);
+    font-size: clamp(0.72rem, 0.9vw, 0.8125rem);
+    line-height: 1.75;
+    color: #cfe9ee;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--bp-line-strong) transparent;
+    white-space: pre;
+  }
+
+  .code-morph__line { display: flex; gap: 14px; min-height: 1.75em; }
+  .code-morph__ln { flex: none; width: 2ch; color: rgb(0 163 175 / 0.4); text-align: right; user-select: none; }
+  .tk-c { color: #6f8fa3; font-style: italic; }
+  .tk-s { color: var(--yellow); }
+  .tk-n { color: var(--coral); }
+  .tk-k { color: var(--teal); font-weight: 700; }
+  .tk-f { color: #8fe6ee; }
+
+  /* auto-advance timer */
+  .code-morph__progress {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background: var(--teal);
+    transform-origin: left;
+    animation: cm-progress var(--dur) linear both;
+    box-shadow: 0 0 10px var(--teal);
+  }
+
+  .code-morph__progress[data-paused] { animation: none; transform: scaleX(0); }
+  @keyframes cm-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  /* ============ PhotonKnot ============ */
+  .photon-knot { position: absolute; inset: 0; }
+
+  /* ============ PrizeParticles ============ */
+  .prize-particles { position: absolute; inset: 0; pointer-events: none; }
+
+  /* ============ Tear ticket content ============ */
+  .ticket__body {
+    display: grid;
+    align-content: center;
+    gap: 10px;
+    height: 100%;
+    padding: 26px 28px;
+    background:
+      repeating-linear-gradient(-45deg, rgb(0 163 175 / 0.07) 0 1px, transparent 1px 10px);
+  }
+
+  .ticket__admit { color: var(--yellow); font-size: 0.6875rem; }
+  .ticket__name { font-size: clamp(1.6rem, 2.6vw, 2.2rem); line-height: 0.95; }
+  .ticket__meta { color: var(--bp-ink); font-size: 0.625rem; }
+
+  .ticket__stub {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 8px;
+    height: 100%;
+    color: var(--ink);
+    text-align: center;
+  }
+
+  .ticket__stub .display { font-size: 1.2rem; }
+  .ticket__stub .label { font-size: 0.625rem; }
+}
+
+/* ============ SealEmblem: the animated HISD seal in the hero ============ */
+@layer components {
+  .emblem { position: relative; width: 100%; aspect-ratio: 1; --px: 0; --py: 0; }
+  .emblem__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; max-width: none; }
+
+  /* pointer parallax: deeper layers drift further */
+  .emblem__layer {
+    position: absolute;
+    inset: 0;
+    transform: translate3d(calc(var(--px) * var(--depth) * 2px), calc(var(--py) * var(--depth) * 2px), 0);
+  }
+
+  /* HTML-level rotation = compositor-only animation */
+  .emblem__rot { will-change: rotate; }
+  .emblem__rot--ticks { animation: emblem-spin 240s linear infinite; }
+  .emblem__rot--text { animation: emblem-spin 60s linear infinite reverse; }
+  .emblem__rot--dash { animation: emblem-spin 90s linear infinite; }
+
+  .emblem__ticks line { stroke: rgb(0 163 175 / 0.45); stroke-width: 1.4; stroke-linecap: round; }
+  .emblem__ticks line.is-lit { stroke: var(--yellow); stroke-width: 5; }
+  .emblem__text { font-family: var(--font-mono); font-size: 15px; letter-spacing: 0.32em; fill: rgb(208 249 255 / 0.75); text-transform: uppercase; }
+  .emblem__dash { fill: none; stroke: rgb(0 163 175 / 0.5); stroke-width: 1; stroke-dasharray: 2 9; }
+
+  .emblem__orbit-path { fill: none; stroke: rgb(255 255 255 / 0.07); stroke-width: 1; }
+  .emblem__builder { fill: var(--yellow); }
+  .emblem__builder-halo { fill: none; stroke: rgb(249 208 78 / 0.35); stroke-width: 1.5; }
+  .emblem__orbit--0 { animation: emblem-spin 14s linear infinite; }
+  .emblem__orbit--1 { animation: emblem-spin 19s linear infinite; animation-delay: -6s; }
+  .emblem__orbit--2 { animation: emblem-spin 26s linear infinite reverse; animation-delay: -11s; }
+
+  /* pulses: plain circles (border), scaled on the compositor */
+  .emblem__pulses i {
+    position: absolute;
+    left: 21%;
+    top: 21%;
+    width: 58%;
+    height: 58%;
+    border: 1.5px solid var(--teal);
+    border-radius: 50%;
+    opacity: 0;
+    will-change: scale, opacity;
+    animation: emblem-pulse 4.5s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+  }
+
+  .emblem__pulses i:nth-child(2) { animation-delay: 1.5s; }
+  .emblem__pulses i:nth-child(3) { animation-delay: 3s; }
+
+  .emblem__seal {
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    width: 60%;
+    height: 60%;
+    filter: drop-shadow(0 0 28px rgb(0 163 175 / 0.45));
+    animation: emblem-breathe 6s ease-in-out infinite;
+  }
+
+  @keyframes emblem-spin { to { rotate: 360deg; } }
+  @keyframes emblem-pulse {
+    0% { scale: 1; opacity: 0.55; }
+    100% { scale: 1.75; opacity: 0; }
+  }
+  @keyframes emblem-breathe { 50% { scale: 1.025; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .emblem__rot, .emblem__seal { animation: none; }
+    .emblem__pulses { display: none; }
+  }
+}

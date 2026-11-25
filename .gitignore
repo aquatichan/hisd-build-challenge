@@ -23,6 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 
+# Large source assets (processed output ships from public/, never the raw model or originals)
+assets-src/
+houston.obj
+
 # Environment files (keep secrets out of git)
 .env
 .env.*
