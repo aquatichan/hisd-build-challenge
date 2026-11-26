@@ -84,6 +84,51 @@ const schoolCard = (c, i) => {
 </div>`
 }
 
+// ---------- empty card: "your school" (same size and frame as a school card, logo seat left empty) ----------
+const emptyCard = (n) => `<div id="card" style="width:630px;height:880px;position:relative;overflow:hidden;border-radius:28px;color:#fff;
+  background:radial-gradient(ellipse at 50% 0%,#14427a,#061633 62%,#020d26)">
+  <div style="position:absolute;inset:16px;border:2px solid ${C.teal};border-radius:18px"></div>
+  <div style="position:absolute;inset:26px;border:1px solid rgb(0 163 175/.35);border-radius:12px"></div>
+  <div style="position:absolute;top:44px;left:48px;right:48px;display:flex;align-items:center;gap:14px">
+    <img src="${seal}" width="54" height="54">
+    <div class="mono" style="font-size:15px;line-height:1.35;color:#bfeff3">Houston ISD<br>Build Challenge</div>
+    <div class="mono" style="margin-left:auto;font-size:15px;color:${C.yellow}">No. ${String(n).padStart(2, '0')}</div>
+  </div>
+  <div style="position:absolute;top:140px;left:48px;right:48px">
+    <div class="mono" style="display:inline-block;background:${C.yellow};color:${C.ink};font-weight:700;font-size:15px;padding:6px 12px">Open seat</div>
+    <div class="disp" style="font-size:76px;margin-top:22px">Your<br><span style="color:${C.teal}">school</span></div>
+    <div class="disp" style="font-size:30px;margin-top:10px;color:#dfe9ee">Could be next</div>
+  </div>
+  <div style="position:absolute;left:48px;right:48px;top:390px;bottom:120px;display:grid;place-items:center">
+    <div style="width:300px;height:300px;border:3px dashed ${C.teal};border-radius:50%;display:grid;place-items:center;text-align:center">
+      <div class="mono" style="font-size:20px;line-height:1.5;color:#bfeff3">Your logo<br>goes here</div>
+    </div>
+  </div>
+  <div style="position:absolute;left:48px;right:48px;bottom:48px;display:flex;justify-content:space-between;align-items:end;border-top:1px solid rgb(0 163 175/.4);padding-top:16px">
+    <div class="mono" style="font-size:14px;color:#bfeff3">Your address</div>
+    <div class="mono" style="font-size:14px;color:${C.teal}">1 of ${map.counts.total} campuses</div>
+  </div>
+</div>`
+
+// ---------- people placeholders (no faces: a labeled frame per role) ----------
+const PEOPLE = [
+  ['organizers', 'District organizer', 'teal'],
+  ['leads', 'School lead', 'yellow'],
+  ['founders', 'Founding team', 'coral'],
+]
+const person = (role, tone, n) => `<div id="card" style="width:600px;height:750px;position:relative;overflow:hidden;color:#fff;
+  background:repeating-linear-gradient(-45deg,rgb(0 163 175/.12) 0 2px,transparent 2px 16px),radial-gradient(ellipse at 30% 15%,#123a6e,#061633 72%)">
+  <div style="position:absolute;inset:26px;border:2px solid ${C[tone]}66"></div>
+  ${['top:18px;left:18px;border-width:3px 0 0 3px', 'top:18px;right:18px;border-width:3px 3px 0 0', 'bottom:18px;left:18px;border-width:0 0 3px 3px', 'bottom:18px;right:18px;border-width:0 3px 3px 0']
+    .map((p) => `<span style="position:absolute;${p};width:40px;height:40px;border-style:solid;border-color:${C[tone]}"></span>`)
+    .join('')}
+  <div style="position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:20px;text-align:center">
+    ${camera(C[tone])}
+    <div class="disp" style="font-size:64px;max-width:460px;color:#fff">${role}<br><span style="color:${C[tone]}">${n}</span></div>
+    <div class="mono" style="font-size:20px;color:#9fd9df">Photo coming soon</div>
+  </div>
+</div>`
+
 // ---------- sponsor stickers (transparent, die-cut white edge) ----------
 const STICKERS = [
   { shape: 'border-radius:50%', w: 420, h: 420, bg: C.yellow, fg: C.ink },
@@ -233,5 +278,7 @@ await render(duskScene(), 'houston-dusk.jpg')
 await render(badgeFront, 'badge-front.jpg')
 await render(badgeBack, 'badge-back.jpg')
 await render(strap, 'strap.png')
+await render(emptyCard(SCHOOLS.length + 1), 'school-empty.jpg')
+for (const [slug, role, tone] of PEOPLE) for (let n = 1; n <= 5; n++) await render(person(role, tone, n), `people-${slug}-${n}.jpg`)
 for (const [i, s] of STICKERS.entries()) await render(sticker(s, i), `sponsor-${String(i + 1).padStart(2, '0')}.png`)
 ws.close()

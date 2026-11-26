@@ -16,21 +16,6 @@
     will-change: transform;
   }
 
-  .map-overlay__land {
-    color: var(--bp-ink);
-    font-size: 0.6875rem;
-    margin: -8px 0 0 10px;
-    white-space: nowrap;
-  }
-
-  .map-overlay__land::before {
-    content: '+';
-    position: absolute;
-    left: -14px;
-    top: -1px;
-    color: var(--teal);
-  }
-
   /* storyboard-style map pins: a glowing marker standing on each participating campus */
   .map-pin__icon {
     position: absolute;
@@ -39,20 +24,6 @@
     max-width: none; /* the pin wrapper is 0px wide; don't let the global svg rule squash it */
     color: var(--yellow);
     animation: pin-bob 2.8s var(--ease) infinite alternate;
-  }
-
-  .map-pin__label {
-    position: absolute;
-    left: 0;
-    top: -62px;
-    transform: translateX(-50%);
-    padding: 3px 8px;
-    white-space: nowrap;
-    color: var(--ink);
-    background: var(--yellow);
-    font-weight: 700;
-    font-size: 0.6875rem;
-    border-radius: var(--r);
   }
 
   @keyframes pin-bob {
@@ -77,10 +48,6 @@
   .map-tip strong { font-size: 0.9375rem; line-height: 1.2; }
   .map-tip .label { color: var(--bp-ink); font-size: 0.6875rem; }
   .map-tip .tag { justify-self: start; }
-
-  @media (max-width: 767px) {
-    .map-overlay__land { display: none; }
-  }
 
   @media (prefers-reduced-motion: reduce) {
     .map-pin__icon { animation: none; }

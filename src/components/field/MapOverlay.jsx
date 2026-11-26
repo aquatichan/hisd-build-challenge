@@ -7,11 +7,11 @@ import './map-overlay.css'
 const LEVEL = { elementary: 'Elementary', middle: 'Middle school', high: 'High school', other: 'Campus' }
 const lit = map.campuses.map((c, i) => ({ ...c, i })).filter((c) => c.participating)
 
-/** Pins, landmark labels and the hover tooltip, tracking the WebGL map (positions from the shared bus). */
+/** Pins for participating schools and the hover tooltip, tracking the WebGL map (positions from the shared bus).
+ *  Names only appear on hover: no standing labels on the map. */
 export default function MapOverlay() {
   const rootRef = useRef(null)
   const pinRefs = useRef([])
-  const landRefs = useRef([])
   const tipRef = useRef(null)
   const tipName = useRef(null)
   const tipMeta = useRef(null)
@@ -27,22 +27,9 @@ export default function MapOverlay() {
       root.classList.toggle('is-ready', bus.ready)
       if (!bus.ready) return
 
-      const width = root.clientWidth
       lit.forEach((c, k) => {
         const pin = pinRefs.current[k]
-        if (!pin) return
-        const x = bus.campusX[c.i]
-        pin.style.transform = `translate3d(${x}px, ${bus.campusY[c.i]}px, 0)`
-        // keep the centered label inside the frame near the edges
-        const lab = pin.lastChild
-        const w = lab.offsetWidth
-        const left = x - w / 2
-        const shift = left < 6 ? 6 - left : left + w > width - 6 ? width - 6 - (left + w) : 0
-        lab.style.translate = `${shift}px 0`
-      })
-      map.landmarks.forEach((_, i) => {
-        const el = landRefs.current[i]
-        if (el) el.style.transform = `translate3d(${bus.landX[i]}px, ${bus.landY[i]}px, 0)`
+        if (pin) pin.style.transform = `translate3d(${bus.campusX[c.i]}px, ${bus.campusY[c.i]}px, 0)`
       })
 
       const h = bus.listHover >= 0 ? bus.listHover : bus.hover
@@ -71,16 +58,9 @@ export default function MapOverlay() {
 
   return (
     <div ref={rootRef} className="map-overlay" aria-hidden="true">
-      {map.landmarks.map((l, i) => (
-        <span key={l.label} ref={(el) => (landRefs.current[i] = el)} className="map-overlay__land label">
-          {l.label}
-        </span>
-      ))}
-
       {lit.map((c, k) => (
         <div key={c.id} ref={(el) => (pinRefs.current[k] = el)} className="map-pin">
           <Icon name="pinSolid" size={30} className="map-pin__icon" />
-          <span className="map-pin__label label">{c.name.replace(' High School', ' HS')}</span>
         </div>
       ))}
 

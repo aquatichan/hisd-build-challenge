@@ -6,6 +6,9 @@ export const event = {
   coordinates: '29.7604° N, 95.3698° W',
 
   // Primary call to action. Flip `phase` to 'register' once registration opens.
+  // The pilot campus: the school that came up with the Build Challenge. Listed first wherever schools appear.
+  pilot: { school: 'Westside High School', url: 'https://whs-build-2627.web.app/' },
+
   phase: 'updates', // 'updates' | 'register'
   links: {
     updates: '', // Google Form URL (user to provide)

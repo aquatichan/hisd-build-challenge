@@ -170,8 +170,6 @@
   .map-tip { background: #021230; border: 1px solid var(--line-strong); border-radius: var(--r); backdrop-filter: none; padding: 10px 12px; }
   .map-tip strong { color: var(--white); font-size: var(--t-body); font-weight: 700; }
   .map-tip .label { color: #d5dde8; font-size: var(--t-small); }
-  .map-overlay__land { color: #c3d0de; font-family: var(--font-sans); font-size: var(--t-label); }
-  .map-pin__label { font-family: var(--font-sans); text-transform: none; letter-spacing: 0; font-size: var(--t-label); }
   .schools__title { display: block; max-width: none; }
   .schools__box { border: 0; padding: 0; background: none; }
   .schools__box-title { font-style: normal; text-transform: none; font-size: var(--t-h3); color: var(--white); letter-spacing: -0.02em; }
@@ -483,5 +481,51 @@
 
   @media (max-width: 1099px) {
     .join { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- COLLECTION ---------- */
+  .schools__deck-title { padding-bottom: var(--s-2); margin-bottom: 0; border-bottom: 1px solid var(--line-strong); }
+
+  /* the pilot campus: its card at the same size, centered on its own row, with a quiet aurora behind */
+  .pilot-row { position: relative; display: grid; justify-items: center; padding: var(--s-5) 0; margin-bottom: var(--s-4); overflow: hidden; }
+  .pilot-row__lightrays { position: absolute; inset: 0; z-index: 0; opacity: 0.75; mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent); }
+  .pilot-row__card { position: relative; z-index: 1; display: grid; justify-items: center; gap: 14px; width: min(100%, 280px); }
+
+  /* the open seat: a regular-size holo card, translucent until you reach for it */
+  .schools__card-open { display: block; width: min(100%, 280px); opacity: 0.45; transition: opacity 200ms var(--ease); }
+  .schools__card-open:hover, .schools__card-open:focus-visible { opacity: 0.8; }
+
+  .schools__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .schools__card-slot { width: min(100%, 280px); }
+
+  @media (max-width: 1099px) {
+    .pilot { grid-template-columns: 1fr; justify-items: start; gap: var(--s-4); }
+    .pilot__fx { display: none; }
+  }
+
+  @media (max-width: 767px) {
+    .pilot__slot { width: min(100%, 300px); }
+    .schools__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pilot__wave { display: none; }
+    .pilot__dot { animation: none; opacity: 0.45; }
+  }
+
+  /* ---------- PEOPLE: three carousels, one in focus ---------- */
+  .people { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-4); }
+  .people__col { display: grid; gap: var(--s-1); padding-top: var(--s-2); border-top: 1px solid var(--line); opacity: 0.45; transition: opacity 300ms var(--ease), border-color 300ms var(--ease); }
+  .people__col.is-focus { opacity: 1; border-top-color: var(--teal); }
+  .people__name { font-size: var(--t-h3); letter-spacing: -0.02em; }
+  .people__stage { position: relative; height: 340px; overflow: hidden; }
+  .people__still { height: 100%; width: auto; margin: 0 auto; object-fit: cover; }
+  .people__note { color: var(--yellow); font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; }
+  .people__col:not(.is-focus) .people__note { color: var(--muted); }
+
+  @media (max-width: 1099px) {
+    .people { grid-template-columns: 1fr; gap: var(--s-3); }
+    .people__col { opacity: 1; }
+    .people__stage { height: 300px; }
   }
 }

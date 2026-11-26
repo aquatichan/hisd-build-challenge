@@ -402,7 +402,7 @@
   .how { overflow: hidden; padding-bottom: calc(16.7vw + 48px); }
 
   .how__head { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-  .how__knot { position: relative; flex: none; width: clamp(260px, 30vw, 420px); aspect-ratio: 1.35; margin: -40px 0 -60px; }
+  .how__knot { position: relative; flex: none; width: clamp(380px, 46vw, 700px); aspect-ratio: 1.25; margin: -90px -2% -110px 0; }
   .how__title { position: relative; display: inline-block; font-size: clamp(2.6rem, 5.6vw, 5rem); }
 
   /* three yellow "spark" dashes off the top-right corner */

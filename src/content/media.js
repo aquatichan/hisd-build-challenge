@@ -14,9 +14,9 @@ export const photos = [
 
 // Collectible cards for participating schools (front art per school). Keyed by NCES name.
 export const schoolCards = {
-  'Bellaire High School': '/placeholders/school-bellaire.jpg',
-  'Carnegie Vanguard High School': '/placeholders/school-carnegie.jpg',
   'Westside High School': '/placeholders/school-westside.jpg',
+  'Carnegie Vanguard High School': '/placeholders/school-carnegie.jpg',
+  'Bellaire High School': '/placeholders/school-bellaire.jpg',
 }
 
 // Sponsor / partner stickers. Click a sticker to peel it off and reveal who they are.

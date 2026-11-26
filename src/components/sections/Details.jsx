@@ -1,8 +1,9 @@
 import { lazy, useRef } from 'react'
-import { facts, people, rules } from '../../content/details.js'
+import { facts, rules } from '../../content/details.js'
 import { sponsors } from '../../content/media.js'
 import WhenNear from '../ui/WhenNear.jsx'
 import SponsorStickers from '../fx/SponsorStickers.jsx'
+import PeopleCarousels from '../fx/PeopleCarousels.jsx'
 import Icon from '../ui/Icon.jsx'
 
 const PrizeParticles = lazy(() => import('../fx/PrizeParticles.jsx'))
@@ -66,27 +67,7 @@ export default function Details() {
         <h2 className="section-title details__title details__title--people reveal">
           The people <em className="accent">behind it</em>
         </h2>
-        <div className="cards cards--people">
-          {people.map((g) => (
-            <article key={g.group} className="outline-card outline-card--person reveal">
-              <div className="outline-card__top">
-                <Icon name={g.icon} size={28} strokeWidth={1.5} />
-              </div>
-              <h3 className="display">{g.group}</h3>
-              {g.members.length ? (
-                <ul>
-                  {g.members.map((m) => (
-                    <li key={m.name}>
-                      <strong>{m.name}</strong> <span className="label">{m.role}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="outline-card__tbd">Names coming soon</p>
-              )}
-            </article>
-          ))}
-        </div>
+        <PeopleCarousels />
 
         {/* sponsors: click a sticker to peel it and see who they are */}
         <h2 className="section-title details__title details__title--people reveal">

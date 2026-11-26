@@ -9,9 +9,17 @@ import WhenNear from '../ui/WhenNear.jsx'
 import Icon from '../ui/Icon.jsx'
 
 const HoloCard = lazy(() => import('../bits/HoloCard.jsx'))
+const LightRays = lazy(() => import('../bits/LightRays.jsx'))
 
 const LEVEL_NAME = { elementary: 'Elementary', middle: 'Middle', high: 'High', other: 'Campus' }
-const litSchools = map.campuses.map((c, i) => ({ ...c, i })).filter((c) => c.participating)
+// participating schools, the pilot campus (Westside) first
+const litSchools = map.campuses
+  .map((c, i) => ({ ...c, i }))
+  .filter((c) => c.participating)
+  .sort((a, b) => (b.name === event.pilot.school) - (a.name === event.pilot.school))
+const pilot = litSchools.find((c) => c.name === event.pilot.school)
+const others = litSchools.filter((c) => c !== pilot)
+
 
 // 04 Your schools: participation across HISD on the live campus map (every dot is a real campus),
 // then a collectible holo card for every school that's in.
@@ -111,8 +119,47 @@ export default function Schools() {
             {litSchools.length} of {map.counts.total} collected
           </span>
         </h3>
+        {/* the pilot campus: same card, centered on its own row with a quiet aurora behind it */}
+        {pilot && (
+          <div className="pilot-row" onPointerEnter={lit(pilot.i)} onPointerLeave={unlit}>
+            <WhenNear className="pilot-row__lightrays" keep={false} margin="30% 0px" aria-hidden="true">
+              <LightRays 
+                  raysOrigin="top-center"
+                  raysColor="#ffffff"
+                  raysSpeed={1}
+                  lightSpread={0.5}
+                  rayLength={3}
+                  glow={0.6}
+                  haze={0.25}
+                  followMouse
+                  mouseInfluence={0.1}
+                  rayDensity={1}
+                  tilt={0}
+                  raySharpness={0.35}
+                  atmosphere={1}
+                  intensity={1}
+                  fadeDistance={1}
+                  saturation={1}
+                  noiseAmount={0}
+                  distortion={0}
+                  pulsating={false}
+                  cursorShadow
+                  clickPulse
+                  intro
+                  lightMode={false}
+              />
+            </WhenNear>
+            <div className="pilot-row__card">
+              <WhenNear className="schools__card-slot" keep={false} fallback={<img className="schools__card-still" src={schoolCards[pilot.name]} alt="" />}>
+                <HoloCard image={schoolCards[pilot.name]} alt={`${pilot.name} collectible card`} width={250} radius={16} style={{ '--hc-w': '100%' }} preset="shards" intensity={0.38} edgeSparkle={0.5} glare={0.35} foilColor="#d0f9ff" />
+              </WhenNear>
+              <p className="label schools__card-cap">{pilot.name} · Pilot campus</p>
+            </div>
+          </div>
+        )}
+
         <ul className="schools__cards">
-          {litSchools.map((c) => (
+          {others.map((c) => (
             <li key={c.id} onPointerEnter={lit(c.i)} onPointerLeave={unlit}>
               <WhenNear className="schools__card-slot" keep={false} fallback={<img className="schools__card-still" src={schoolCards[c.name]} alt="" />}>
                 <HoloCard image={schoolCards[c.name]} alt={`${c.name} collectible card`} width={250} radius={16} style={{ '--hc-w': '100%' }} preset="shards" intensity={0.38} edgeSparkle={0.5} glare={0.35} foilColor="#d0f9ff" />
@@ -120,12 +167,14 @@ export default function Schools() {
               <p className="label schools__card-cap">{c.name}</p>
             </li>
           ))}
+          {/* the open seat: a full-size holo card, drawn translucent */}
           <li className="schools__card-next">
-            <a href={event.links.bringSchool || '#join'} className="schools__card-empty">
-              <Icon name="school" size={34} />
-              <span className="display">Your school</span>
-              <span className="label">Card {litSchools.length + 1} is waiting...</span>
+            <a href={event.links.bringSchool || '#join'} className="schools__card-open" aria-label={`Bring your school: card ${litSchools.length + 1} is waiting`}>
+              <WhenNear className="schools__card-slot" keep={false} fallback={<img className="schools__card-still" src="/placeholders/school-empty.jpg" alt="" />}>
+                <HoloCard image="/placeholders/school-empty.jpg" alt="" width={250} radius={16} style={{ '--hc-w': '100%' }} preset="shards" intensity={0.3} edgeSparkle={0.4} glare={0.3} foilColor="#d0f9ff" />
+              </WhenNear>
             </a>
+            <p className="label schools__card-cap">Card {litSchools.length + 1} is waiting...</p>
           </li>
         </ul>
       </div>

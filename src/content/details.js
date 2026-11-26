@@ -10,9 +10,12 @@ export const rules = {
   note: 'Rules, eligibility and team size are confirmed. The official text will be posted here.',
 }
 
-// People: names/portraits not provided yet. `members` fills in as people are confirmed; empty shows "TBD".
+// People: three groups, each a carousel in the people section. `members` fills in as people are confirmed:
+//   { name: 'Full Name', role: 'Title / school', photo: '/people/full-name.jpg' }
+// While a group is empty its carousel shows labeled placeholder frames (no faces).
+// `slug` picks the placeholder art (public/placeholders/people-<slug>-1..5.jpg).
 export const people = [
-  { group: 'District organizers', icon: 'users', members: [] },
-  { group: 'School leads', icon: 'school', members: [] },
-  { group: 'Student team', icon: 'gear', members: [] },
+  { group: 'District organizers', slug: 'organizers', members: [] },
+  { group: 'School leads', slug: 'leads', members: [] },
+  { group: 'Founding team', slug: 'founders', members: [] },
 ]
